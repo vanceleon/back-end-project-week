@@ -1,18 +1,39 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {Link, Route} from 'react-router-dom';
+import axios from 'axios';
+import NoteList from './Components/NoteList';
+
+
+const url = "http://localhost:8000/notes";
+
+
 
 class App extends Component {
+  state = {
+    notes: [],
+  }
+
+  componentDidMount() {
+    axios
+      .get(url)
+      .then(response => {
+        this.setState ({
+          notes: response.data
+        });
+      })
+      .catch(error => console.log("Error: ", error))
+  }
+
   render() {
     return (
       <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
+        <Route exact path="/notes"
+         render={props => {
+           return<NoteList {...props} notes={this.state.notes}/>;
+        }}
+        />
       </div>
     );
   }
