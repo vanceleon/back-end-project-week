@@ -33,6 +33,7 @@ class App extends Component {
       .catch(error => console.log("Error: ", error));
   }
 
+  // quarantine: bad function. do not touch!
   getByID = id => {
     // event.preventDefault();
     // const id = this.state.id;
@@ -43,6 +44,7 @@ class App extends Component {
       })
       .catch(error => console.log("Error: ", error));
   };
+  // end of quarantine
 
   newNote = event => {
     event.preventDefault();
@@ -61,46 +63,59 @@ class App extends Component {
   };
 
   editNote = (event, id, push) => {
-    console.log("passing through edit note:", event, id, push);
     event.preventDefault();
+    console.log("passing through edit note:", event, id, push);
 
     // const notes = this.state.notes.map(note => {
     //   const updateNote = {...note };
-    //   if (note.id === id){
+    //   if (note.id == id){
     //     console.log(id)
     //     if(this.state.title) updateNote.title = this.state.title; 
     //     if(this.state.content) updateNote.content = this.state.content;
     //     return updateNote;
     //   }
     // })
-  }
-  //   axios 
-  //     .put(`${url}/edit/${id}`, notes)
-  //     .then(response => {
-  //       this.setState({
-  //         notes: response.data
-  //       })
-  //       push(`${url}/edit/${id}`);
-  //     })
-  //     .catch(error => console.log("Error: ", error));
-  // };
-
-  // deleteNote = id => {
-  //   event.preventDefault();
-  //   const notes = this.state.notes.map(note => {
-  //     const deleteNote = {...note};
-  //     if (note.id === id )
-  //   })
     
-  //   axios
-  //     .delete(`${url}/delete/${id}`)
-  //     .then(response => {
-  //       this.setState({
-  //         notes: response.data
-  //       });
-  //     })
-  //     .catch(error => console.log("Error: ", error));
-  // };
+    const updateNote = {
+      title: this.state.title,
+      content: this.state.content
+    };
+
+    axios 
+      .put(`${url}/edit/${id}`, updateNote)
+      .then(response => {
+        this.setState({
+          notes: response.data
+        })
+        push(`${url}/edit/${id}`);
+      })
+      .catch(error => console.log("Error: ", error));
+  };
+
+  deleteNote = (event, id, push) => {
+    event.preventDefault();
+
+    // const notes = this.state.notes.map(note => {
+    //   const deleteNote = {...note};
+    //   if (note.id === id )
+    // })
+
+    const deleteNote = {
+      title: this.state.title,
+      content: this.state.content
+    }
+    
+
+    axios
+      .delete(`${url}/delete/${id}`, deleteNote)
+      .then(response => {
+        this.setState({
+          notes: response.data
+        })
+        push(`${url}/delete/${id}`)
+      })
+      .catch(error => console.log("Error: ", error));
+  };
 
   render() {
     const id = this.state.notes;
@@ -180,7 +195,7 @@ class App extends Component {
             render={props => {
               return (
                 <DeleteNote
-                  notes={this.state.notes}
+                  {...props}
                   deleteNote={this.deleteNote}
                 />
               );

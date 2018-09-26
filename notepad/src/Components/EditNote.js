@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const EditNote = props => {
   return (
-    <form onsubmit={event => props.editNote(event, props.match.params.id, props.history.push)}>
+    <form onSubmit={event => props.editNote(event, props.match.params.id, props.history.push)}>
       <input
         type="text"
         name="title"
@@ -14,13 +14,14 @@ const EditNote = props => {
       <input
         className="note-content-input"
         type="text"
+        name="content"
         placeholder="Note Content"
         onChange={props.onChange}
         value={props.content}
       />
-      <Link to="/notes">
-        <button>Save</button>
-      </Link>
+      {/* <Link to="/notes"> */}
+      <button>Save</button>
+      {/* </Link> */}
     </form>
   );
 };

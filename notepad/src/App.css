@@ -31,6 +31,7 @@
 
 .side-bar {
   margin: 0, 35px;
+  background: 
 }
 
 .note-cards {
@@ -59,7 +60,13 @@
 .note-header {
   display: flex;
   align-items: flex-start;
+  font-weight: bold;
 }
+
+.note-line {
+
+}
+
 .note-content {
   display: flex;
   align-items: flex-end;
