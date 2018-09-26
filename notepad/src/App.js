@@ -60,31 +60,47 @@ class App extends Component {
       .catch(error => console.log("Error: ", error));
   };
 
-  editNote = id => {
-    const updateNote = {
-      title: this.state.title,
-      content: this.state.content
-    };
-    axios 
-      .put(`${url}/edit/${id}`, updateNote)
-      .then(response => {
-        this.setState({
-          notes: response.data
-        });
-      })
-      .catch(error => console.log("Error: ", error));
-  };
+  editNote = (event, id, push) => {
+    console.log("passing through edit note:", event, id, push);
+    event.preventDefault();
 
-  deleteNote = id => {
-    axios
-      .delete(`${url}/delete/${id}`)
-      .then(response => {
-        this.setState({
-          notes: response.data
-        });
-      })
-      .catch(error => console.log("Error: ", error));
-  };
+    // const notes = this.state.notes.map(note => {
+    //   const updateNote = {...note };
+    //   if (note.id === id){
+    //     console.log(id)
+    //     if(this.state.title) updateNote.title = this.state.title; 
+    //     if(this.state.content) updateNote.content = this.state.content;
+    //     return updateNote;
+    //   }
+    // })
+  }
+  //   axios 
+  //     .put(`${url}/edit/${id}`, notes)
+  //     .then(response => {
+  //       this.setState({
+  //         notes: response.data
+  //       })
+  //       push(`${url}/edit/${id}`);
+  //     })
+  //     .catch(error => console.log("Error: ", error));
+  // };
+
+  // deleteNote = id => {
+  //   event.preventDefault();
+  //   const notes = this.state.notes.map(note => {
+  //     const deleteNote = {...note};
+  //     if (note.id === id )
+  //   })
+    
+  //   axios
+  //     .delete(`${url}/delete/${id}`)
+  //     .then(response => {
+  //       this.setState({
+  //         notes: response.data
+  //       });
+  //     })
+  //     .catch(error => console.log("Error: ", error));
+  // };
 
   render() {
     const id = this.state.notes;
@@ -152,7 +168,6 @@ class App extends Component {
                 <EditNote
                   {...props}
                   onChange={this.onChange}
-                  handleEdit={this.handleEdit}
                   editNote={this.editNote}
                 />
               );

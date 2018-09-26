@@ -41,8 +41,26 @@
   margin: 20px 0;
 }
 
+.note-link{
+  text-decoration: none;
+  color:  #4A494A;
+}
+
 .note {
   border: 1px solid red;
   height: 250px;
   width: 250px;
+  margin: 10px 0;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.note-header {
+  display: flex;
+  align-items: flex-start;
+}
+.note-content {
+  display: flex;
+  align-items: flex-end;
 }
