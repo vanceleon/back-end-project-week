@@ -9,7 +9,7 @@ const NoteList = props => {
         {props.notes.map(note => {
           return (
             <div>
-              <Note key={props._id} note={note} />
+              <Note key={props.id} note={note} getById={props.getById}/>
             </div>
           );
         })}

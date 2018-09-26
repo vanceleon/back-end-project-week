@@ -15,11 +15,12 @@ const NoteForm = props => {
         />
         <input
           type="textarea"
-          name="textBody"
+          name="content"
           placeholder="Note Content"
           value={props.content}
           onChange={props.noteChange}
         />
+        
         <Link to="/notes">
           <button onClick={props.newNote}>Save</button>
         </Link>

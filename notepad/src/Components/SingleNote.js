@@ -1,25 +1,40 @@
 import React, { Component } from "react";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class SingleNote extends Component {
-    constructor(props) {
-        super(props);
-        this.state = { 
-            notes: props.notes,
-        };
-    }
+  constructor(props) {
+    super(props);
+    this.state = {
+      notes: this.props.note,
+      title: "",
+      content: ""
+    };
+  }
 
-    render() {
-        const note = this.props.notes.find(note => {
-            return note.id === this.props.match.params.id;
-        });
-        console.log("notes-singleNotes: ", this.props.notes);
-        return (
-            <div className="note-container">
-                {this.props.notes}
-            </div>
-        )
-    }
+  render() {
+      // // const note = this.state.notes.find(note, id => {
+          // //     console.log("single Note: ", note, id)
+          // //     // return note.id === props.match.params.id;
+          // });
+          console.log("singlenote ", this.state.notes)
+          
+          return (
+      <div className="note-container">
+        {console.log("notes-singleNotes: ", this.state.notes)}
+        <Link to={`/notes/edit/${this.state.notes.id}`}>
+          <div>Edit</div>
+        </Link>
+        <Link to={`/notes/delete/${this.state.notes.id}`}>
+          <div>Delete</div>
+        </Link>
+        {}
+        <h1>{this.state.notes.title}</h1>
+        
+        {/* {this.state.note} */}
+
+      </div>
+    );
+  }
 }
 
 export default SingleNote;

@@ -7,14 +7,13 @@ import NoteForm from "./Components/NoteForm";
 import SingleNote from "./Components/SingleNote";
 import DeleteNote from "./Components/DeleteNote";
 import EditNote from "./Components/EditNote";
-
+// import { runInThisContext } from "vm";
 
 const url = "http://localhost:8000/notes";
 
 class App extends Component {
   state = {
     notes: [],
-    id: "",
     title: "",
     content: ""
   };
@@ -34,21 +33,62 @@ class App extends Component {
       .catch(error => console.log("Error: ", error));
   }
 
+  getByID = id => {
+    // event.preventDefault();
+    // const id = this.state.id;
+    axios
+      .get(`/${url}/${id}`)
+      .then(response => {
+        this.setState({ notes: response.data });
+      })
+      .catch(error => console.log("Error: ", error));
+  };
+
   newNote = event => {
     event.preventDefault();
-    const notes = this.state.notes;
-    notes.push({
-      id: this.state.id,
+    const newNoteInfo = {
       title: this.state.title,
       content: this.state.content
-    });
-    this.setState({ notes, id: "", title: "", content: "" });
+    };
+    axios
+      .post(url, newNoteInfo)
+      .then(response => {
+        this.setState({
+          notes: response.data
+        });
+      })
+      .catch(error => console.log("Error: ", error));
+  };
+
+  editNote = id => {
+    const updateNote = {
+      title: this.state.title,
+      content: this.state.content
+    };
+    axios 
+      .put(`${url}/edit/${id}`, updateNote)
+      .then(response => {
+        this.setState({
+          notes: response.data
+        });
+      })
+      .catch(error => console.log("Error: ", error));
+  };
+
+  deleteNote = id => {
+    axios
+      .delete(`${url}/delete/${id}`)
+      .then(response => {
+        this.setState({
+          notes: response.data
+        });
+      })
+      .catch(error => console.log("Error: ", error));
   };
 
   render() {
-    const id = req.params.id;
+    const id = this.state.notes;
     return (
-
       <div className="App">
         <div className="side-bar">
           <aside className="sidebar-left">
@@ -61,58 +101,77 @@ class App extends Component {
             </Link>
           </aside>
         </div>
+        <div className="notes-container">
+          <Route
+            exact
+            path="/notes"
+            render={props => {
+              return (
+                <NoteList
+                  {...props}
+                  notes={this.state.notes}
+                  getById={this.getByID}
+                />
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/noteform"
+            render={props => {
+              return (
+                <NoteForm
+                  {...props}
+                  noteChange={this.onChange}
+                  newNote={this.newNote}
+                  id={this.state.id}
+                  title={this.state.title}
+                  content={this.state.content}
+                />
+              );
+            }}
+          />
+          <Route
+            exact
+            path="/notes/:id"
+            render={props => {
+              return (
+                <SingleNote
+                  {...props}
+                  getByID={this.getByID}
+                  note={this.state.notes}
+                />
+              );
+            }}
+          />
+          <Route
+            exact
+            path={"/notes/edit/:id"}
+            render={props => {
+              return (
+                <EditNote
+                  {...props}
+                  onChange={this.onChange}
+                  handleEdit={this.handleEdit}
+                  editNote={this.editNote}
+                />
+              );
+            }}
+          />
 
-        <Route
-          exact
-          path="/notes"
-          render={props => {
-            return <NoteList {...props} notes={this.state.notes} />;
-          }}
-        />
-        <Route
-          exact
-          path="/noteform"
-          render={props => {
-            return (
-              <NoteForm
-                {...props}
-                noteChange={this.onChange}
-                newNote={this.newNote}
-                id={this.state.id}
-                title={this.state.title}
-                content={this.state.content}
-              />
-            );
-          }}
-        />
-        <Route
-          exact
-          path="/notes/:id"
-          render={props => {
-            return <SingleNote {...props} notes={this.state.notes} />;
-          }}
-        />
-        <Route
-          exact
-          path={`/notes/edit/${id}`}
-          render={props => {
-            return (
-              <EditNote
-                {...props}
-                onChange={this.onChange}
-                handleEdit={this.handleEdit}
-              />
-            );
-          }}
-        />
-
-        <Route
-          exact
-          path={`/notes/delete/${id}`}
-          render={props => {
-            return <DeleteNote notes={this.state.notes} />;
-          }}
-        />
+          <Route
+            exact
+            path={"/notes/delete/:id"}
+            render={props => {
+              return (
+                <DeleteNote
+                  notes={this.state.notes}
+                  deleteNote={this.deleteNote}
+                />
+              );
+            }}
+          />
+        </div>
       </div>
     );
   }

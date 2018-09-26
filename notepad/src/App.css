@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  display: flex;
 }
 
 .App-logo {
@@ -25,4 +26,22 @@
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
+}
+
+
+.side-bar {
+  margin: 0, 35px;
+}
+
+.note-cards {
+  display: flex;
+  border: 1px solid black;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
+
+.note {
+  border: 1px solid red;
+  height: 250px;
+  width: 250px;
 }
