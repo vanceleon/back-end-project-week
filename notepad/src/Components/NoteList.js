@@ -6,7 +6,7 @@ const NoteList = props => {
     <React.Fragment>
       <h2>Your Notes:</h2>
       <div className="note-cards">
-        {props.notes.map(note => {
+       {props.notes.map(note => {
           return (
             <div>
               <Note key={props.id} note={note} getById={props.getById}/>
