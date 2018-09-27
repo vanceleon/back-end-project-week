@@ -22,7 +22,7 @@ const NoteForm = props => {
         />
         
         <Link to="/notes">
-          <button onClick={props.newNote}>Save</button>
+          <button onClick={event => props.newNote(event, props.history.push)}>Save</button>
         </Link>
       </form>
     </div>

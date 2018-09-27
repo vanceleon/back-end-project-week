@@ -34,8 +34,7 @@ class App extends Component {
   }
 
   getAllNotes = () => {
-    return axios
-      .get(url);
+    return axios.get(url);
   };
 
   getByID = id => {
@@ -49,7 +48,7 @@ class App extends Component {
       .catch(error => console.log("Error: ", error));
   };
 
-  newNote = event => {
+  newNote = (event, push) => {
     event.preventDefault();
     const newNoteInfo = {
       title: this.state.title,
@@ -58,9 +57,14 @@ class App extends Component {
     axios
       .post(url, newNoteInfo)
       .then(response => {
-        this.setState({
-          notes: response.data
-        });
+        this.getAllNotes()
+          .then(response => {
+            this.setState({
+              notes: response.data
+            });
+            push(`/notes`);
+          })
+          .catch(err => console.log("Error: ", err));
       })
       .catch(error => console.log("Error: ", error));
   };
@@ -111,10 +115,12 @@ class App extends Component {
     axios
       .delete(`${url}/delete/${id}`)
       .then(response => {
-        this.setState({
-          notes: response.data
-        });
-        push(`/delete/${id}`);
+        this.getAllNotes()
+          .then(response => {
+            this.setState({ notes: response.data });
+            push(`/delete/${id}`);
+          })
+          .catch(err => console.log(err));
       })
       .catch(error => console.log("Error: ", error));
   };
