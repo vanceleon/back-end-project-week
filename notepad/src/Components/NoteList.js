@@ -3,6 +3,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const NoteList = props => {
+  console.log(props)
+  if (!props.notes) {
+    return (
+      <div>Loading. Maybe for forever.</div>
+    );
+  }
   return (
     <React.Fragment>
       <h2 className="note-container-title">Your Notes:</h2>

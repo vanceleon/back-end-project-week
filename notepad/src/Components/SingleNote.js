@@ -1,45 +1,65 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import axios from 'axios';
+
 
 class SingleNote extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      notes: this.props.note,
+      note: null,
       title: "",
       content: ""
     };
   }
 
+  componentDidMount() {
+
+    const url = "http://localhost:8000/notes";
+    axios
+      .get(`${url}/${this.props.match.params.id}`)
+      .then(response => {
+        console.log('response:', response.data);
+        this.setState({ note: response.data });
+      })
+      .catch(error => console.log("Error: ", error));
+  }
+
+
+
   render() {
-    const note = this.state.notes.find(note => {
-      // console.log("note id: ", note.id)
-      // console.log("params id: ", this.props.match.params.id)
-      if (note.id === this.props.match.params.id) {
-        // const note = note;
-        // console.log(note)
-        return note;
-      }
-      return note;
-    });
+    // const note = this.state.note.find(note => {
+    //   // console.log("note id: ", note.id)
+    //   // console.log("params id: ", this.props.match.params.id)
+    //   if (note.id === this.props.match.params.id) {
+    //     // const note = note;
+    //     // console.log(note)
+    //     return note;
+    //   }
+    //   return note;
+    // });
     // console.log("params ", this.props.match.params.id)
     // console.log("note.id", this.state.note.id)
     //== vs === know the difference
     // console.log("note ", this.props.note.id)
-
+    if (!this.state.note) {
+      return (
+        <div>Hold your horses!</div>
+      );
+    }
     return (
       <React.Fragment>
         <div className="e_d-buttons">
-          <Link to={`/notes/edit/${note.id}`}>
+          <Link to={`/notes/edit/${this.state.note.id}`}>
             <div>Edit</div>
           </Link>
-          <Link to={`/notes/delete/${note.id}`}>
+          <Link to={`/notes/delete/${this.state.note.id}`}>
             <div>Delete</div>
           </Link>
         </div>
         <div className="note-container">
-          <div>{note.title}</div>
-          <div>{note.content}</div>
+          <div>{this.state.note.title}</div>
+          <div>{this.state.note.content}</div>
         </div>
       </React.Fragment>
     );

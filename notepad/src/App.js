@@ -14,6 +14,7 @@ const url = "http://localhost:8000/notes";
 class App extends Component {
   state = {
     notes: [],
+    note: {},
     title: "",
     content: ""
   };
@@ -23,8 +24,7 @@ class App extends Component {
   };
 
   componentDidMount() {
-    axios
-      .get(url)
+    this.getAllNotes()
       .then(response => {
         this.setState({
           notes: response.data
@@ -33,18 +33,21 @@ class App extends Component {
       .catch(error => console.log("Error: ", error));
   }
 
-  // quarantine: bad function. do not touch!
+  getAllNotes = () => {
+    return axios
+      .get(url);
+  };
+
   getByID = id => {
     // event.preventDefault();
     // const id = this.state.id;
     axios
       .get(`${url}/${id}`)
       .then(response => {
-        this.setState({ notes: response.data });
+        this.setState({ note: response.data });
       })
       .catch(error => console.log("Error: ", error));
   };
-  // end of quarantine
 
   newNote = event => {
     event.preventDefault();
@@ -84,34 +87,34 @@ class App extends Component {
     axios
       .put(`${url}/edit/${id}`, updateNote)
       .then(response => {
-        this.setState({
-          notes: response.data
-        });
-        push(`${url}/edit/${id}`);
+        this.getAllNotes()
+          .then(response => {
+            this.setState({ notes: response.data });
+            push(`/edit/${id}`);
+          })
+          .catch(err => console.log(err));
       })
       .catch(error => console.log("Error: ", error));
   };
 
   deleteNote = (event, id, push) => {
     event.preventDefault();
-
     // const notes = this.state.notes.map(note => {
     //   const deleteNote = {...note};
     //   if (note.id === id )
     // })
-
-    const deleteNote = {
-      title: this.state.title,
-      content: this.state.content
-    };
+    // const deleteNote = {
+    //   title: this.state.title,
+    //   content: this.state.content
+    // };
 
     axios
-      .delete(`${url}/delete/${id}`, deleteNote)
+      .delete(`${url}/delete/${id}`)
       .then(response => {
         this.setState({
           notes: response.data
         });
-        push(`${url}/delete/${id}`);
+        push(`/delete/${id}`);
       })
       .catch(error => console.log("Error: ", error));
   };
@@ -169,7 +172,7 @@ class App extends Component {
                 <SingleNote
                   {...props}
                   getByID={this.getByID}
-                  note={this.state.notes}
+                  note={this.state.note}
                 />
               );
             }}
