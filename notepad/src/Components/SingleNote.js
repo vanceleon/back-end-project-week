@@ -54,7 +54,7 @@ class SingleNote extends Component {
             <div className="edit-button">Edit</div>
           </Link>
           <Link to={`/notes/${this.state.note.id}/delete`} className="delete-link">
-            <div className="delete-button">Delete</div>
+            <div className="s_delete-button">Delete</div>
           </Link>
         </div>
         <div className="note-container">

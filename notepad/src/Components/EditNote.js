@@ -3,8 +3,9 @@ import React from "react";
 
 const EditNote = props => {
   return (
-    <form onSubmit={event => props.editNote(event, props.match.params.id, props.history.push)}>
+    <form className="editNote-container">
       <input
+        className="note-title-input"
         type="text"
         name="title"
         placeholder="Note Title"
@@ -20,7 +21,7 @@ const EditNote = props => {
         value={props.content}
       />
       {/* <Link to="/notes"> */}
-      <button>Save</button>
+      <div onClick={event => props.editNote(event, props.match.params.id, props.history.push)} className="save-button">Save</div>
       {/* </Link> */}
     </form>
   );
