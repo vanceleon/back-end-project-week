@@ -15,7 +15,7 @@ const NoteList = props => {
       <div className="note-cards">
         {props.notes.map(note  => {
           return (
-            <div>
+            <React.Fragment>
               {/* <Note key={props.id} note={note} getById={props.getById}/> */}
               <div key={note.id}>
                 <Link to={`/notes/${note.id}`} className="note-link">
@@ -25,7 +25,7 @@ const NoteList = props => {
                   </div>
                 </Link>
               </div>
-            </div>
+            </React.Fragment>
           );
         })}
       </div>

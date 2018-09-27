@@ -132,12 +132,12 @@ class App extends Component {
         <div className="side-bar">
           <aside className="sidebar-left">
             <h1>Lambda Notes</h1>
-            <Link to="/notes">
-              <button>View Your Notes</button>
-            </Link>
-            <Link to="/noteform">
-              <button>Create New Note</button>
-            </Link>
+            <Link to={"/notes"} className="links">
+            <div className="view-notes">View Your Notes</div>
+          </Link>
+          <Link to={"/noteform"} className="links">
+            <div className="new-note">Create New Note</div>
+          </Link>
           </aside>
         </div>
         <div className="notes-container">

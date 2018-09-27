@@ -1,6 +1,7 @@
 .App {
-  text-align: center;
+  text-align: left;
   display: flex;
+  margin: 0 auto;
 }
 
 .App-logo {
@@ -28,10 +29,26 @@
   to { transform: rotate(360deg); }
 }
 
+.links {
+  text-decoration: none;
+}
 
 .side-bar {
-  margin: 0, 35px;
-  background: 
+  padding: 10px;
+  max-width: 900px;
+  background: #D3D2D3;
+}
+
+.view-notes {
+  background: #24B8BD;
+  color: white;
+  margin: 0 0 10px 0;
+  height: 50px;
+}
+
+.new-note {
+  background: #24B8BD;
+  color: white;
 }
 
 .note-cards {
