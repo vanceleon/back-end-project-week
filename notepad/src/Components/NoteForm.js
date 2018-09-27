@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 const NoteForm = props => {
   return (
     <div>
-      <form>
+      <form className="newNote-Form">
         <h1>Create New Note:</h1>
         <input
+          className="new-title"
           name="title"
           type="text"
           placeholder="Note Title"
@@ -14,6 +15,7 @@ const NoteForm = props => {
           onChange={props.noteChange}
         />
         <input
+          className="new-content"
           type="textarea"
           name="content"
           placeholder="Note Content"
@@ -22,7 +24,7 @@ const NoteForm = props => {
         />
         
         <Link to="/notes">
-          <button onClick={event => props.newNote(event, props.history.push)}>Save</button>
+          <div onClick={event => props.newNote(event, props.history.push)} className="save-button">Save</div>
         </Link>
       </form>
     </div>

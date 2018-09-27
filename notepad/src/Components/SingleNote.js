@@ -58,8 +58,8 @@ class SingleNote extends Component {
           </Link>
         </div>
         <div className="note-container">
-          <div>{this.state.note.title}</div>
-          <div>{this.state.note.content}</div>
+          <div className="notecard-title">{this.state.note.title}</div>
+          <div className="notecard-content">{this.state.note.content}</div>
         </div>
       </React.Fragment>
     );
