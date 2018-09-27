@@ -15,12 +15,12 @@ class SingleNote extends Component {
     const note = this.state.notes.find(note => {
       // console.log("note id: ", note.id)
       // console.log("params id: ", this.props.match.params.id)
-      if (note.id == this.props.match.params.id) {
+      if (note.id === this.props.match.params.id) {
         // const note = note;
         // console.log(note)
         return note;
       }
-      // return note;
+      return note;
     });
     // console.log("params ", this.props.match.params.id)
     // console.log("note.id", this.state.note.id)

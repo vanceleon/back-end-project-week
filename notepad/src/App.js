@@ -38,7 +38,7 @@ class App extends Component {
     // event.preventDefault();
     // const id = this.state.id;
     axios
-      .get(`/${url}/${id}`)
+      .get(`${url}/${id}`)
       .then(response => {
         this.setState({ notes: response.data });
       })
@@ -64,29 +64,29 @@ class App extends Component {
 
   editNote = (event, id, push) => {
     event.preventDefault();
-    console.log("passing through edit note:", event, id, push);
+    // console.log("passing through edit note:", event, id, push);
 
     // const notes = this.state.notes.map(note => {
     //   const updateNote = {...note };
     //   if (note.id == id){
     //     console.log(id)
-    //     if(this.state.title) updateNote.title = this.state.title; 
+    //     if(this.state.title) updateNote.title = this.state.title;
     //     if(this.state.content) updateNote.content = this.state.content;
     //     return updateNote;
     //   }
     // })
-    
+
     const updateNote = {
       title: this.state.title,
       content: this.state.content
     };
 
-    axios 
+    axios
       .put(`${url}/edit/${id}`, updateNote)
       .then(response => {
         this.setState({
           notes: response.data
-        })
+        });
         push(`${url}/edit/${id}`);
       })
       .catch(error => console.log("Error: ", error));
@@ -103,22 +103,21 @@ class App extends Component {
     const deleteNote = {
       title: this.state.title,
       content: this.state.content
-    }
-    
+    };
 
     axios
       .delete(`${url}/delete/${id}`, deleteNote)
       .then(response => {
         this.setState({
           notes: response.data
-        })
-        push(`${url}/delete/${id}`)
+        });
+        push(`${url}/delete/${id}`);
       })
       .catch(error => console.log("Error: ", error));
   };
 
   render() {
-    const id = this.state.notes;
+    // const id = this.state.notes;
     return (
       <div className="App">
         <div className="side-bar">
@@ -193,12 +192,7 @@ class App extends Component {
             exact
             path={"/notes/delete/:id"}
             render={props => {
-              return (
-                <DeleteNote
-                  {...props}
-                  deleteNote={this.deleteNote}
-                />
-              );
+              return <DeleteNote {...props} deleteNote={this.deleteNote} />;
             }}
           />
         </div>
