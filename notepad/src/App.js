@@ -113,12 +113,12 @@ class App extends Component {
     // };
 
     axios
-      .delete(`${url}/delete/${id}`)
+      .delete(`${url}/${id}/delete`)
       .then(response => {
         this.getAllNotes()
           .then(response => {
             this.setState({ notes: response.data });
-            push(`/delete/${id}`);
+            push(`/${id}/delete`);
           })
           .catch(err => console.log(err));
       })
@@ -171,7 +171,6 @@ class App extends Component {
             }}
           />
           <Route
-            exact
             path="/notes/:id"
             render={props => {
               return (
@@ -199,7 +198,7 @@ class App extends Component {
 
           <Route
             exact
-            path={"/notes/delete/:id"}
+            path={"/notes/:id/delete"}
             render={props => {
               return <DeleteNote {...props} deleteNote={this.deleteNote} />;
             }}

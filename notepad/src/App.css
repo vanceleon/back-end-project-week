@@ -2,6 +2,7 @@
   text-align: left;
   display: flex;
   margin: 0 auto;
+  max-width: 1028px;
 }
 
 .App-logo {
@@ -35,8 +36,9 @@
 
 .side-bar {
   padding: 10px;
-  max-width: 900px;
+  width: 25%;
   background: #D3D2D3;
+  height: 100vh;
 }
 
 .view-notes {
@@ -44,16 +46,24 @@
   color: white;
   margin: 0 0 10px 0;
   height: 50px;
+  text-align: center;
 }
 
 .new-note {
   background: #24B8BD;
   color: white;
+  height: 50px;
+  text-align: center;
 }
+
+
+.notes-container {
+  width: 75%;
+  background: #F2F1F2;
+} 
 
 .note-cards {
   display: flex;
-  border: 1px solid black;
   flex-wrap: wrap;
   justify-content: space-evenly;
   margin: 20px 0;
@@ -65,13 +75,13 @@
 }
 
 .note {
-  border: 1px solid red;
-  height: 250px;
-  width: 250px;
-  margin: 10px 0;
-  text-decoration: none;
   display: flex;
   flex-direction: column;
+  height: 250px;
+  width: 250px;
+  margin: 5px;
+  background: white;
+  text-decoration: none;
 }
 
 .note-header {
@@ -87,4 +97,29 @@
 .note-content {
   display: flex;
   align-items: flex-end;
+}
+
+.e_d-buttons{
+  display: flex;
+  justify-content: flex-end;
+  margin: 20px;
+
+}
+
+.edit-button {
+  margin: 0 10px 0 0;
+}
+
+.edit-link {
+  color:  #4A494A;
+  font-weight: bold;
+}
+
+.delete-link {
+  color:  #4A494A;
+  font-weight: bold;
+}
+
+.delete-container {
+  display: 
 }

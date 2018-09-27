@@ -50,11 +50,11 @@ class SingleNote extends Component {
     return (
       <React.Fragment>
         <div className="e_d-buttons">
-          <Link to={`/notes/edit/${this.state.note.id}`}>
-            <div>Edit</div>
+          <Link to={`/notes/edit/${this.state.note.id}`} className="edit-link">
+            <div className="edit-button">Edit</div>
           </Link>
-          <Link to={`/notes/delete/${this.state.note.id}`}>
-            <div>Delete</div>
+          <Link to={`/notes/${this.state.note.id}/delete`} className="delete-link">
+            <div className="delete-button">Delete</div>
           </Link>
         </div>
         <div className="note-container">

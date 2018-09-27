@@ -76,7 +76,7 @@ server.put("/notes/edit/:id", (req, res) => {
 });
 
 //Deleting notes
-server.delete("/notes/delete/:id", (req, res) => {
+server.delete("/notes/:id/delete", (req, res) => {
   const id = req.params.id;
   db("notes")
     .where({ id })

@@ -3,19 +3,21 @@ import { Link } from "react-router-dom";
 
 const DeleteNote = props => {
   return (
-    <div className="delete-container">
+    <form className="delete-container">
       <h4>Are you sure you want to delete this?</h4>
-      <button
-        onClick={event =>
-          props.deleteNote(event, props.match.params.id, props.history.push)
-        }
-      >
-        DELETE
-      </button>
       <Link to="/notes">
-        <button>NO</button>
+        <div
+          onClick={event =>
+            props.deleteNote(event, props.match.params.id, props.history.push)
+          }
+        >
+          DELETE
+        </div>
       </Link>
-    </div>
+      <Link to="/notes">
+        <div>NO</div>
+      </Link>
+    </form>
   );
 };
 
